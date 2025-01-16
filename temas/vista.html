@@ -1,0 +1,180 @@
+<html>
+    <link rel="stylesheet" type="text/css"href="../estilos.css">    
+    <link rel="shortcut icon" href="../calculadorsita.png">
+    <head class="cabeza">
+    <title>Calculadora</title>
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+    
+        body.loaded {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+    <center>
+    <div class="titulo">        
+            <h1>CALCULADORA</h1>           
+    </div>  
+</center>  
+<br>
+    <center>
+    <nav>
+  <div>    
+    <button id="re" onclick="location.href='../index.html'">Vectores</button>
+    <button id="re">Vista</button>
+    <button id="fr" onclick="location.href='friccion.html'">Friccion</button>
+    <button id="ver"onclick="location.href='Torsion.html'">Torsion</button>
+    <button id="ver"onclick="location.href='Torsion_r.html'">Torsion Resultante</button>
+    <button id="ver"onclick="location.href='Velocidad.html'">Rapidez y velocidad</button>
+    <button id="ac" onclick="location.href='Aceleracion.html'">Aceleracion</button>
+    <button id="ac" onclick="location.href='Gravedad.html'">Gravedad</button>
+    <button id="ac" onclick="location.href='Proyeccion.html'">Proyeccion Horizontal</button>
+    <button id="eq" onclick="location.href='Equilibrio.html'">Equilibrio</button>
+    <button id="cr" onclick="location.href='creditos.html'">Creditos</button>
+    <!-- <button id="ver" onclick="location.href='temas/energiac.html'">Energia cinetica</button>  
+    <button id="ver"onclick="location.href='temas/energiap.html'">Energia potencial</button> 
+    <button id="ver"onclick="location.href='temas/trabajo.html'">Trabajo</button> -->
+
+  </div>
+    </nav>
+</center>
+</head>
+
+<body background="../gojo.jpeg">    
+    <div class="altura">
+
+    </div>
+    <hr>
+    <br>
+    <center>        
+        <button class="boton" type="button" id="agregar">Agregar</button>    
+    <!-- <button class="boton" type="button">Eliminar</button> -->
+    <button class="boton" id="btn_graficar" type="button">Graficar</button>
+    <br>
+    <br>
+    <div class="altura">
+
+    </div>
+    
+    <table class="tablita" id="tablitaa">
+        <tr class="arriba"><!-- bgcolor='lightblue'-->  
+            <th>Fuerza</th>
+            <th>Angulo</th>
+            <th>Componente X</th>
+            <th>Componente Y</th>
+        </tr>
+                
+        <tr class="tere">
+            <th><input type="number" class="inp" placeholder="F"></th>
+            <th><input type="number" class="inp" placeholder="A"></th>
+            <th><script src="operaciones.js"></script></th>
+            <th></th>
+        </tr>
+        <tr class="tere">
+            <th><input class="inp" type="number" placeholder="F"></th>
+            <th><input class="inp" type="number"placeholder="A"></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody>
+    </tbody>
+    </table>
+    <br> 
+    <div id="resultado"></div>
+   
+</center>
+<center>
+
+<canvas id="canva"  class="canvita" style="border: 2px solid black;" width="500" height="500"></canvas>
+
+</center>
+<script>
+    document.getElementById('btn_graficar').addEventListener('click', function() {
+        graficarVectores();
+    });
+
+    function graficarVectores() {
+        const canvas = document.getElementById("canva");
+        const ctx = canvas.getContext("2d");
+
+        // Limpiar el canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Dibuja los ejes X y Y
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height / 2);
+        ctx.lineTo(canvas.width, canvas.height / 2);
+        ctx.moveTo(canvas.width / 2, 0);
+        ctx.lineTo(canvas.width / 2, canvas.height);
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+
+        const filas = document.getElementById('tablitaa').getElementsByTagName('tbody')[0].getElementsByClassName('tere');
+
+        let vectorsito = 1;  
+
+        Array.from(filas).forEach(fila => {
+            const fuerzaInput = fila.cells[0].getElementsByTagName('input')[0];
+            const anguloInput = fila.cells[1].getElementsByTagName('input')[0];
+
+            const fuerza = parseFloat(fuerzaInput.value);
+            const angulo = parseFloat(anguloInput.value);
+
+            if (!isNaN(fuerza) && !isNaN(angulo)) {
+                const anguloRadianes = angulo * (Math.PI / 180);
+
+                const Fx = fuerza * Math.cos(anguloRadianes);
+                const Fy = fuerza * Math.sin(anguloRadianes);
+
+                let color = 'red';  
+                if (vectorsito === 2) color = 'green';
+                else if (vectorsito === 3) color = 'blue';
+
+                const startX = canvas.width / 2;
+                const startY = canvas.height / 2;
+
+                const { x: vectorX, y: vectorY } = polarACartesiano(fuerza, angulo);
+
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(startX + vectorX, startY - vectorY);
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                ctx.fillStyle = color;
+                ctx.font = '14px Arial';
+                ctx.fillText(`F${vectorsito}: |${fuerza}| N`, startX + vectorX + 5, startY - vectorY);
+
+                ctx.fillText(`${angulo}°`, startX + vectorX / 2, startY - vectorY / 2);
+
+                vectorsito++;  
+            }
+        });        
+
+        function polarACartesiano(magnitud, angulo) {
+            const radian = angulo * Math.PI / 180;
+            return {
+                x: magnitud * Math.cos(radian) * 4,
+                y: magnitud * Math.sin(radian) * 4
+            };
+        }
+    }
+</script>
+
+
+
+
+    
+
+
+<script src="../operaciones.js"></script>
+</body>
+</html>
