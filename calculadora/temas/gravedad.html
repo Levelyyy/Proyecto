@@ -1,0 +1,202 @@
+<html>
+    <link rel="stylesheet" type="text/css" href="../estilos.css">
+    <link href="operaciones.js">
+    <link rel="shortcut icon" href="../calculadorsita.png">
+    <head class="cabeza">
+    <title>Calculadora</title>
+    <center>
+    <div class="titulo">        
+            <h1>CALCULADORA</h1>           
+    </div>  
+</center>  
+<br>
+    <center>
+    <nav>
+  <div>
+    <button id="re" onclick="location.href='../index.html'">Vectores</button>
+    <button id="re" onclick="location.href='vista.html'">Vista</button>
+    <button id="fr" onclick="location.href='friccion.html'">Friccion</button>
+    <button id="to"onclick="location.href='torsion.html'">Torsion</button>
+    <button id="tor"onclick="location.href='torsion_r.html'">Torsion Resultante</button>
+    <button id="rap"onclick="location.href='velocidad.html'">Rapidez y velocidad</button>
+    <button id="ac"onclick="location.href='aceleracion.html'">Aceleracion</button>
+    <button id="gr">Gravedad</button>
+    <button id="proc" onclick="location.href='proyeccion.html'">Proyeccion Horizontal</button>
+    <button id="eq" onclick="location.href='equilibrio.html'">Equilibrio</button>
+    <button id="cr" onclick="location.href='creditos.html'">Creditos</button>
+    <!--<button id="ec" onclick="location.href='energiac.html'">Energia cinetica</button>  
+    <button id="ep"onclick="location.href='energiap.html'">Energia potencial</button> 
+    <button id="tr"onclick="location.href='trabajo.html'">Trabajo</button> -->
+  </div>
+    </nav>
+</center>
+</head>
+<body background="../gojo.jpeg">
+  <div class="altura">
+
+  </div>
+  <hr>
+  <details class="detallitos">
+    <summary style="font-weight: bold; font-size: 20px;">Definicion</summary>
+    <section class="info">
+      <h2>Definición o Explicación del Tema</h2>
+      <p>La gravedad es la fuerza que atrae a los objetos hacia el centro de un cuerpo masivo, como la Tierra. Es una de las cuatro fuerzas fundamentales de la naturaleza y se encarga de mantener a los objetos en la superficie del planeta.</p>
+      <p>La aceleración debida a la gravedad en la Tierra es aproximadamente 9.81 m/s². Esta aceleración afecta a todos los objetos, independientemente de su masa.</p>
+      <h3>Fórmulas Clave:</h3>
+      <ul>
+          <li>Fuerza de gravedad (F<sub>g</sub>):  F<sub>g</sub> = m * g</li>
+          <li>Aceleración debida a la gravedad (g):  g = F<sub>g</sub> / m</li>
+      </ul>
+    </section>
+  </details>
+  <details class="detallitos" style="right: 8%;">
+    <summary style="font-weight: bold; font-size: 20px;">Ejemplo</summary>
+    <section class="info">
+      <h2>Ejemplo: Cálculo de la Fuerza de Gravedad</h2>
+      <p>Si un objeto tiene una masa de 10 kg, la fuerza de gravedad que actúa sobre él se calcula de la siguiente manera:</p>
+      <p>F<sub>g</sub> = m * g = 10 kg * 9.81 m/s² = 98.1 N</p>
+    </section>
+  </details>
+  <center>
+    <h2>Ingresa los valores conocidos</h2>  
+    <input class="inpuu" id="masa" type="number" placeholder="Masa (m)">
+<input class="inpuu" id="gravedad" type="number" placeholder="Gravedad (g)" value="9.81">
+<input class="inpuu" id="altura" type="number" placeholder="Altura (h)">
+<input class="inpuu" id="tiempo" type="number" placeholder="Tiempo (t)">
+<input class="inpuu" id="velocidad" type="number" placeholder="Velocidad final (v)">
+<input class="inpuu" id="fuerzaGravedad" type="number" placeholder="Fuerza de gravedad (Fg)">
+<div>
+  <button class="boton" onclick="calcularMasa()">Calcular Masa (m)</button>
+  <button class="boton" onclick="calcularGravedad()">Calcular Gravedad (g)</button>
+  <button class="boton" onclick="calcularAltura()">Calcular Altura (h)</button><br><br>
+  <button class="boton" onclick="calcularTiempo()">Calcular Tiempo (t)</button>
+  <button class="boton" onclick="calcularVelocidad()">Calcular Velocidad Final (v)</button>
+  <button class="boton" onclick="calcularFuerzaGravedad()">Calcular Fuerza de Gravedad (Fg)</button>
+</div>
+<br>
+<div id="resultado" class="resultado"></div>
+
+    
+    
+    <div id="resultado" class="resultado"></div>
+</center>
+<details class="detallitos" style="right: 40%;">
+  <summary style="font-weight: bold; font-size: 20px;">Ejercicio</summary>
+  <section class="info">
+    <h2>Ejercicio para el Estudiante</h2>
+    <ul>
+        <li>1. Calcula la fuerza de gravedad que actúa sobre un objeto de 15 kg.</li>
+        <li>2. Si un objeto pesa 75 N, ¿cuál es su masa?</li>
+    </ul>
+    <!-- <input class="inpuu" type="number" placeholder="Escribe tu resultado aqui" id="inicial"> <center><button onclick="chequeo()" class="boton"id="respuesta">Checar</button></center>
+          <script>
+              function chequeo(){
+          const resultadon = document.getElementById("inicial").value;
+          let resulton = parseFloat(resultadon);
+          if (resulton>2 || resulton<3){
+              alert("Buena ahi, el resultado es correcto :)");
+          }else{
+              alert("El resultado es incorrecto :(");
+          }
+          }
+          </script>
+          -->
+  </section>
+</details>
+
+
+<script>
+  function calcularMasa() {
+      const fuerzaGravedad = parseFloat(document.getElementById("fuerzaGravedad").value);
+      const gravedad = parseFloat(document.getElementById("gravedad").value);
+
+      if (!isNaN(fuerzaGravedad) && !isNaN(gravedad)) {
+          const masa = fuerzaGravedad / gravedad;
+          mostrarResultado(`La masa es: m = ${masa.toFixed(2)} kg`);
+      } else {
+          mostrarError();
+      }
+  }
+
+  function calcularGravedad() {
+      const fuerzaGravedad = parseFloat(document.getElementById("fuerzaGravedad").value);
+      const masa = parseFloat(document.getElementById("masa").value);
+
+      if (!isNaN(fuerzaGravedad) && !isNaN(masa)) {
+          const gravedad = fuerzaGravedad / masa;
+          mostrarResultado(`La gravedad es: g = ${gravedad.toFixed(2)} m/s²`);
+      } else {
+          mostrarError();
+      }
+  }
+
+  function calcularAltura() {
+      const gravedad = parseFloat(document.getElementById("gravedad").value);
+      const tiempo = parseFloat(document.getElementById("tiempo").value);
+
+      if (!isNaN(gravedad) && !isNaN(tiempo)) {
+          const altura = 0.5 * gravedad * Math.pow(tiempo, 2);
+          mostrarResultado(`La altura es: h = ${altura.toFixed(2)} m`);
+      } else {
+          mostrarError();
+      }
+  }
+
+  function calcularTiempo() {
+      const altura = parseFloat(document.getElementById("altura").value);
+      const gravedad = parseFloat(document.getElementById("gravedad").value);
+
+      if (!isNaN(altura) && !isNaN(gravedad)) {
+          const tiempo = Math.sqrt((2 * altura) / gravedad);
+          mostrarResultado(`El tiempo es: t = ${tiempo.toFixed(2)} s`);
+      } else {
+          mostrarError();
+      }
+  }
+
+  function calcularVelocidad() {
+      const gravedad = parseFloat(document.getElementById("gravedad").value);
+      const tiempo = parseFloat(document.getElementById("tiempo").value);
+      const altura = parseFloat(document.getElementById("altura").value);
+
+      if (!isNaN(gravedad) && !isNaN(tiempo)) {
+          const velocidad = gravedad * tiempo;
+          mostrarResultado(`La velocidad final es: v = ${velocidad.toFixed(2)} m/s`);
+      } else if (!isNaN(gravedad) && !isNaN(altura)) {
+          const velocidad = Math.sqrt(2 * gravedad * altura);
+          mostrarResultado(`La velocidad final es: v = ${velocidad.toFixed(2)} m/s`);
+      } else {
+          mostrarError();
+      }
+  }
+
+  function calcularFuerzaGravedad() {
+      const masa = parseFloat(document.getElementById("masa").value);
+      const gravedad = parseFloat(document.getElementById("gravedad").value);
+
+      if (!isNaN(masa) && !isNaN(gravedad)) {
+          const fuerzaGravedad = masa * gravedad;
+          mostrarResultado(`La fuerza de gravedad es: Fg = ${fuerzaGravedad.toFixed(2)} N`);
+      } else {
+          mostrarError();
+      }
+  }
+
+  // Función para mostrar el resultado en el div de resultado
+  function mostrarResultado(mensaje) {
+      document.getElementById("resultado").innerHTML = `<br>
+          <div class="resultadito">
+              ${mensaje}
+          </div><br>`;
+  }
+
+  // Función para mostrar un mensaje de error
+  function mostrarError() {
+      document.getElementById("resultado").innerHTML = `<br>
+          <div class="resultadito" >
+              Por favor, ingrese los valores adecuados para calcular el valor faltante.
+          </div> <br>`;
+  }
+</script>
+</body>
+</html>

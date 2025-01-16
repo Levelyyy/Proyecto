@@ -1,0 +1,160 @@
+<html>
+    <link rel="stylesheet" type="text/css" href="../estilos.css">
+    <link href="operaciones.js">
+    <link rel="shortcut icon" href="../calculadorsita.png">
+    <head class="cabeza">
+    <title>Calculadora</title>
+    <center>
+    <div class="titulo">        
+            <h1>CALCULADORA</h1>           
+    </div>  
+</center>  
+<br>
+    <center>
+    <nav>
+  <div>
+    <button id="re" onclick="location.href='../index.html'">Vectores</button>
+    <button id="re" onclick="location.href='vista.html'">Vista</button>
+    <button id="fr" onclick="location.href='friccion.html'">Friccion</button>
+    <button id="to"onclick="location.href='torsion.html'">Torsion</button>
+    <button id="tor"onclick="location.href='torsion_r.html'">Torsion Resultante</button>
+    <button id="rap">Rapidez y velocidad</button>
+    <button id="ac" onclick="location.href='aceleracion.html'">Aceleracion</button>
+    <button id="gr" onclick="location.href='gravedad.html'">Gravedad</button>
+    <button id="proc" onclick="location.href='proyeccion.html'">Proyeccion Horizontal</button>
+    <button id="eq" onclick="location.href='equilibrio.html'">Equilibrio</button>
+    <button id="cr" onclick="location.href='creditos.html'">Creditos</button>
+    <!-- <button id="ec" onclick="location.href='energiac.html'">Energia cinetica</button>  
+    <button id="ep"onclick="location.href='energiap.html'">Energia potencial</button> 
+    <button id="tr"onclick="location.href='trabajo.html'">Trabajo</button> -->
+  </div>
+    </nav>
+</center>
+</head>
+<body background="../gojo.jpeg">
+  <div class="altura">
+
+  </div>
+  <hr>
+  <details class="detallitos">
+    <summary style="font-weight: bold; font-size: 20px;">Definicion</summary>
+    <section class="info">
+        <h2>Definición o Explicación del Tema</h2>
+        <p>La rapidez es la medida de qué tan rápido se mueve un objeto, sin considerar la dirección. Se calcula como la distancia recorrida en un intervalo de tiempo determinado.</p>
+        <p>La velocidad, por otro lado, es una magnitud vectorial que indica el cambio de posición de un objeto en un tiempo determinado, teniendo en cuenta su dirección.</p>
+        <h3>Fórmulas Clave:</h3>
+        <ul>
+            <li>Rapidez:  R = d / t</li>
+            <li>Velocidad:  v = Δx / Δt</li>
+        </ul>
+    </section>
+  </details>
+  <details class="detallitos" style="right: 8%;">
+    <summary style="font-weight: bold; font-size: 20px;">Ejemplo</summary>
+    <section class="info">
+        <h2>Ejemplo: Cálculo de Rapidez y Velocidad</h2>
+        <p>Un coche recorre 150 km en 2 horas. Para calcular su rapidez, usamos la fórmula de rapidez:</p>
+        <p>R = d / t = 150 km / 2 h = 75 km/h</p>
+        <p>Si el coche se desplaza 150 km hacia el norte en 2 horas, su velocidad es:</p>
+        <p>v = Δx / Δt = 150,000 m / 7200 s = 20.83 m/s al norte</p>
+    </section>
+  </details>
+  <center>
+    <h2>Ingresa los valores conocidos</h2>  
+    <input class="inpuu" id="distancia" type="number" placeholder="Distancia total (d)">
+    <input class="inpuu" id="velocidad" type="number" placeholder="Velocidad (v)">
+    <input class="inpuu" id="tiempo" type="number" placeholder="Tiempo total (t)">
+    <br><br>
+    <button class="boton" onclick="calcularValorFaltante()">Calcular Valor metros y segundos</button>
+    <button class="boton" onclick="calcularValorFaltante2()">Calcular Valor kilometros y horas</button>
+    <div id="resultado" class="resultado"></div>
+</center><br>
+<details class="detallitos" style="right: 40%;">
+    <summary style="font-weight: bold; font-size: 20px;">Ejercicio</summary>
+    <section class="info">
+        <h2>Ejercicio para el Estudiante</h2>
+        <ul>
+            <li>1. Un ciclista recorre 120 km en 3 horas. Calcula su rapidez.</li>
+            <li>2. Si el ciclista se mueve en dirección este durante ese tiempo, ¿cuál es su velocidad?</li>
+        </ul>
+        <!-- <input class="inpuu" type="number" placeholder="Escribe tu resultado aqui" id="inicial"> <center><button onclick="chequeo()" class="boton"id="respuesta">Checar</button></center>
+            <script>
+                function chequeo(){
+            const resultadon = document.getElementById("inicial").value;
+            let resulton = parseFloat(resultadon);
+            if (resulton>2 || resulton<3){
+                alert("Buena ahi, el resultado es correcto :)");
+            }else{
+                alert("El resultado es incorrecto :(");
+            }
+            }
+            </script>
+            -->
+    </section>
+</details>
+
+
+
+
+<script>
+ function calcularValorFaltante() {
+    const distancia = parseFloat(document.getElementById("distancia").value);
+    const velocidad = parseFloat(document.getElementById("velocidad").value);
+    const tiempo = parseFloat(document.getElementById("tiempo").value);
+    let resultado = "";
+
+    if (isNaN(distancia) && !isNaN(velocidad) && !isNaN(tiempo)) {
+        
+        const distanciaCalculada = velocidad * tiempo;
+        resultado = `La distancia es: d = ${(distanciaCalculada.toFixed(2))} m`;
+    } else if (isNaN(velocidad) && !isNaN(distancia) && !isNaN(tiempo)) {
+       
+        const velocidadCalculada = distancia / tiempo;
+        resultado = `La velocidad es: v = ${velocidadCalculada.toFixed(2)} m/s`;
+    } else if (isNaN(tiempo) && !isNaN(distancia) && !isNaN(velocidad)) {
+        
+        const tiempoCalculado = distancia / velocidad;
+        resultado = `El tiempo es: t = ${tiempoCalculado.toFixed(2)} s`;
+    } else {
+        
+        resultado = "<div style='color: red; font-weight: bold;'>Por favor, ingrese exactamente dos valores para calcular el valor faltante.</div>";
+    }
+    
+    
+    document.getElementById("resultado").innerHTML = `<br>
+        <div class='resultadito'>
+            ${resultado}
+        </div><br>`;
+}
+function calcularValorFaltante2() {
+    const distancia = parseFloat(document.getElementById("distancia").value);
+    const velocidad = parseFloat(document.getElementById("velocidad").value);
+    const tiempo = parseFloat(document.getElementById("tiempo").value);
+    let resultado = "";
+
+    if (isNaN(distancia) && !isNaN(velocidad) && !isNaN(tiempo)) {
+        
+        const distanciaCalculada = velocidad * tiempo;
+        resultado = `La distancia es: d = ${distanciaCalculada.toFixed(2)} km`;
+    } else if (isNaN(velocidad) && !isNaN(distancia) && !isNaN(tiempo)) {
+       
+        const velocidadCalculada = distancia / tiempo;
+        resultado = `La velocidad es: v = ${velocidadCalculada.toFixed(2)} km/h`;
+    } else if (isNaN(tiempo) && !isNaN(distancia) && !isNaN(velocidad)) {
+        
+        const tiempoCalculado = distancia / velocidad;
+        resultado = `El tiempo es: t = ${tiempoCalculado.toFixed(2)} h`;
+    } else {
+        
+        resultado = "<div class='resultadito' style='color: red; font-weight: bold;'>Por favor, ingrese exactamente dos valores para calcular el valor faltante.</div>";
+    }
+    
+    
+    document.getElementById("resultado").innerHTML = `<br>
+        <div class="resultadito">
+            ${resultado}
+        </div> <br>`;
+}
+</script>
+</body>
+</html>
